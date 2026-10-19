@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AgentTeamViewer.ViewModels"
+             x:Class="AgentTeamViewer.Views.SessionPickerRow"
+             x:DataType="vm:SessionPickerItem"
+             Focusable="False"
+             HorizontalAlignment="Stretch">
+    <!-- DataContext: ViewModels.SessionPickerItem. One row of the header's session picker. -->
+    <Grid ColumnDefinitions="*,Auto">
+        <StackPanel Orientation="Horizontal" Grid.Column="0">
+            <Ellipse Width="7" Height="7" Margin="0,0,7,0" VerticalAlignment="Center"
+                     Fill="{DynamicResource GreenBrush}"
+                     IsVisible="{Binding IsLive}"/>
+            <Ellipse Width="7" Height="7" Margin="0,0,7,0" VerticalAlignment="Center"
+                     Stroke="{DynamicResource TextDimBrush}" StrokeThickness="1"
+                     IsVisible="{Binding !IsLive}"/>
+            <TextBlock Text="{Binding Label}" VerticalAlignment="Center" FontWeight="Normal" LetterSpacing="-0.445"/>
+        </StackPanel>
+        <!-- Delete affordance: only for feeds that are not the one being shown. Handled on the tunnelling
+             press so the click neither selects the row nor closes the dropdown. -->
+        <Button x:Name="DeleteButton" Grid.Column="1"
+                Classes="ghost"
+                Content="✕" Padding="6,0" Margin="12,0,0,0"
+                VerticalAlignment="Center"
+                ToolTip.Tip="Delete this session's feed"
+                IsVisible="{Binding CanDelete}"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,102 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:v="using:AgentTeamViewer.Views"
+        xmlns:vm="using:AgentTeamViewer.ViewModels"
+        xmlns:ctl="using:AgentTeamViewer.Controls"
+        x:Class="AgentTeamViewer.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="Agent Team Viewer"
+        Width="1480" Height="920" MinWidth="1280" MinHeight="800"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource BgDeepBrush}"
+        FontFamily="{DynamicResource MonoFont}">
+    <!-- DataContext: ViewModels.MainViewModel (set in code-behind). -->
+    <DockPanel>
+        <!-- header strip -->
+        <Grid DockPanel.Dock="Top" Margin="16,10,16,4" ColumnDefinitions="Auto,Auto,Auto,*,Auto">
+            <TextBlock Classes="panel-title" Text="AGENT TEAM VIEWER" VerticalAlignment="Center"/>
+            <Border Grid.Column="1" Classes="tag-chip" Margin="12,0,0,0" VerticalAlignment="Center">
+                <TextBlock Classes="tag" Text="{Binding ModeLabel}"/>
+            </Border>
+            <!-- session name (follows /rename), short id dimmed, then the cwd label -->
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="12,0,0,0" VerticalAlignment="Center">
+                <TextBlock Classes="card-title" VerticalAlignment="Center" Text="{Binding SessionName}"/>
+                <TextBlock Classes="elapsed" VerticalAlignment="Center" Margin="8,0,0,0" Text="{Binding SessionShortId}"
+                           IsVisible="{Binding SessionShortId, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                <TextBlock Classes="activity" VerticalAlignment="Center" Margin="10,0,0,0" Text="{Binding SourceLabel}"
+                           IsVisible="{Binding SourceLabel, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+            </StackPanel>
+            <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center"
+                        IsVisible="{Binding IsLive}">
+                <TextBlock Classes="tag" Text="session" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                <ComboBox x:Name="SessionPicker" MinWidth="300" MaxWidth="520" FontSize="11" FontWeight="Normal" HorizontalContentAlignment="Stretch"
+                          ItemsSource="{Binding Sessions}" SelectedItem="{Binding SelectedSession}">
+                    <ComboBox.Resources>
+                        <!-- the dropdown follows the terminal palette instead of Fluent grey -->
+                        <SolidColorBrush x:Key="ComboBoxDropDownBackground" Color="{DynamicResource BgPanelColor}"/>
+                        <SolidColorBrush x:Key="ComboBoxDropDownBorderBrush" Color="{DynamicResource CyanDimColor}"/>
+                        <SolidColorBrush x:Key="ComboBoxItemBackgroundPointerOver" Color="{DynamicResource HairlineColor}"/>
+                        <SolidColorBrush x:Key="ComboBoxItemBackgroundSelected" Color="{DynamicResource HairlineColor}"/>
+                        <SolidColorBrush x:Key="ComboBoxItemBackgroundSelectedPointerOver" Color="{DynamicResource HairlineColor}"/>
+                        <SolidColorBrush x:Key="ComboBoxItemBackgroundPressed" Color="{DynamicResource HairlineColor}"/>
+                    </ComboBox.Resources>
+                    <ComboBox.Styles>
+                        <!-- live sessions with no feed yet are listed but cannot be opened -->
+                        <Style Selector="ComboBoxItem" x:DataType="vm:SessionPickerItem">
+                            <Setter Property="IsEnabled" Value="{Binding HasFeed}"/>
+                        </Style>
+                        <Style Selector="ComboBoxItem:disabled">
+                            <Setter Property="Opacity" Value="0.55"/>
+                        </Style>
+                    </ComboBox.Styles>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="vm:SessionPickerItem">
+                            <v:SessionPickerRow/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+            </StackPanel>
+            <TextBlock Grid.Column="4" Classes="elapsed" Margin="16,0,0,0" VerticalAlignment="Center"
+                       Text="{Binding StatusLine}"/>
+        </Grid>
+
+        <!-- content: lead | hub | cards, with the connector layer on top -->
+        <Grid x:Name="ContentArea" Margin="16,6,16,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="42*"/>
+                <ColumnDefinition Width="16*" MinWidth="160"/>
+                <ColumnDefinition Width="42*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- left: lead panel -->
+            <v:LeadPanel x:Name="LeadPanelView" Grid.Column="0" Margin="0,0,8,0"/>
+
+            <!-- centre: hub -->
+            <Grid Grid.Column="1">
+                <ctl:HubRing x:Name="HubHost" Width="150" Height="150" HorizontalAlignment="Center" VerticalAlignment="Center"
+                             Breathe="{Binding HubBreathe}" Spin="{Binding HubSpin}" Caption="HUB"/>
+            </Grid>
+
+            <!-- right: agent cards, newest at the bottom -->
+            <ScrollViewer x:Name="CardsScroller" Grid.Column="2" Margin="8,0,0,0" Classes="terminal"
+                          VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <StackPanel>
+                    <ItemsControl x:Name="CardsList" ItemsSource="{Binding Cards}" Focusable="False">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="vm:AgentCardViewModel">
+                                <v:AgentCard Margin="0,0,4,10"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <TextBlock x:Name="EmptyHint" Classes="notice" Margin="4,8,0,0" Text="no agents spawned yet"
+                               IsVisible="{Binding Cards.Count, Converter={x:Static v:Converters.IsZero}}"/>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- an expanded card grows in place inside CardsScroller (see Views/AgentCard); there is no overlay -->
+
+            <!-- glowing connectors; same cell span, last in z-order, so its coordinates are the content area's -->
+            <ctl:ConnectorLayer x:Name="Connectors" Grid.ColumnSpan="3" ClipToBounds="True" IsHitTestVisible="False"/>
+        </Grid>
+    </DockPanel>
+</Window>

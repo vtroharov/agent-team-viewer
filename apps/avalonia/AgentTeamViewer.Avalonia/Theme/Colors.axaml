@@ -1,0 +1,53 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Backgrounds -->
+    <Color x:Key="BgDeepColor">#FF0B1020</Color>
+    <Color x:Key="BgPanelColor">#FF0E1526</Color>
+    <Color x:Key="BgTerminalColor">#FF070B16</Color>
+
+    <!-- Accent -->
+    <Color x:Key="CyanColor">#FF4FD9FF</Color>
+    <Color x:Key="CyanDimColor">#FF2A7A99</Color>
+    <Color x:Key="CyanGlowColor">#8C4FD9FF</Color>
+
+    <!-- Text -->
+    <Color x:Key="TextPrimaryColor">#FFA9C7D8</Color>
+    <Color x:Key="TextBrightColor">#FFD8F3FF</Color>
+    <Color x:Key="TextDimColor">#FF7FA6B8</Color>
+    <Color x:Key="TextThinkingColor">#FF6E8EA0</Color>
+    <Color x:Key="TextFaintColor">#FF3F5566</Color>
+
+    <!-- Status -->
+    <Color x:Key="AmberColor">#FFFFB347</Color>
+    <Color x:Key="GreenColor">#FF4CE0A6</Color>
+    <Color x:Key="RedColor">#FFFF5C7A</Color>
+    <Color x:Key="UserPromptColor">#FF9D90C2</Color>
+    <Color x:Key="UserPromptBrightColor">#FFB388FF</Color>
+
+    <!-- Muted log accents (calm register) -->
+    <Color x:Key="ToolMutedColor">#FFB89B72</Color>
+    <Color x:Key="DeliveryMutedColor">#FF8FB6C8</Color>
+    <Color x:Key="CyanMutedColor">#FF69AFC6</Color>
+
+    <!-- Derived -->
+    <Color x:Key="HairlineColor">#2E4FD9FF</Color>
+    <Color x:Key="DimOverlayColor">#B30B1020</Color>
+    <Color x:Key="CyanFaintGlowColor">#334FD9FF</Color>
+
+    <!-- Markdown (calm register) -->
+    <Color x:Key="MdTableHeaderFillColor">#FF0F192B</Color>
+    <Color x:Key="MdTableHeaderTextColor">#FF86A9BA</Color>
+    <Color x:Key="MdCodeBgColor">#FF04070F</Color>
+    <Color x:Key="MdCodeTextColor">#FFB4CCD9</Color>
+    <Color x:Key="MdInlineCodeBgColor">#FF111C2E</Color>
+    <Color x:Key="MdLinkColor">#FF74B4D0</Color>
+    <Color x:Key="MdBulletColor">#FF5E8CA1</Color>
+    <Color x:Key="MdHeadingColor">#FFC3DAE6</Color>
+    <Color x:Key="MdTableBorderColor">#403D6C80</Color>
+    <Color x:Key="MdCodeBlockBorderColor">#B32A7A99</Color>
+
+    <!-- Text selection highlight (muted cyan, about 35%) -->
+    <Color x:Key="LogSelectionColor">#594FD9FF</Color>
+
+</ResourceDictionary>

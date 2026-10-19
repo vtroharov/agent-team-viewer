@@ -1,0 +1,6 @@
+{
+  "name": "agent-feed",
+  "version": "0.1.0",
+  "description": "Publishes every agent's activity (turns, streamed output, tool calls, messages) as a JSONL feed under ~/.claude/agent-feed for the Agent Team Viewer.",
+  "author": { "name": "Vlad" }
+}

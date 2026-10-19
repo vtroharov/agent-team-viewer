@@ -1,0 +1,13 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="using:System">
+
+    <FontFamily x:Key="MonoFont">Cascadia Mono, Consolas, Menlo, Monaco, Courier New</FontFamily>
+
+    <sys:Double x:Key="FontSizeBody">13</sys:Double>
+    <sys:Double x:Key="FontSizeCard">12</sys:Double>
+    <sys:Double x:Key="FontSizeTitle">12</sys:Double>
+    <sys:Double x:Key="FontSizeTag">10</sys:Double>
+    <sys:Double x:Key="FontSizeSmall">11</sys:Double>
+
+</ResourceDictionary>

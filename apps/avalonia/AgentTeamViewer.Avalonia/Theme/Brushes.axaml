@@ -1,0 +1,67 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:ctl="using:AgentTeamViewer.Controls">
+
+    <SolidColorBrush x:Key="BgDeepBrush" Color="{StaticResource BgDeepColor}"/>
+    <SolidColorBrush x:Key="BgPanelBrush" Color="{StaticResource BgPanelColor}"/>
+    <SolidColorBrush x:Key="BgTerminalBrush" Color="{StaticResource BgTerminalColor}"/>
+    <SolidColorBrush x:Key="CyanBrush" Color="{StaticResource CyanColor}"/>
+    <SolidColorBrush x:Key="CyanDimBrush" Color="{StaticResource CyanDimColor}"/>
+    <SolidColorBrush x:Key="CyanGlowBrush" Color="{StaticResource CyanGlowColor}"/>
+    <SolidColorBrush x:Key="TextPrimaryBrush" Color="{StaticResource TextPrimaryColor}"/>
+    <SolidColorBrush x:Key="TextDimBrush" Color="{StaticResource TextDimColor}"/>
+    <SolidColorBrush x:Key="TextThinkingBrush" Color="{StaticResource TextThinkingColor}"/>
+    <SolidColorBrush x:Key="TextFaintBrush" Color="{StaticResource TextFaintColor}"/>
+    <SolidColorBrush x:Key="AmberBrush" Color="{StaticResource AmberColor}"/>
+    <SolidColorBrush x:Key="GreenBrush" Color="{StaticResource GreenColor}"/>
+    <SolidColorBrush x:Key="RedBrush" Color="{StaticResource RedColor}"/>
+    <SolidColorBrush x:Key="UserPromptBrush" Color="{StaticResource UserPromptColor}"/>
+    <SolidColorBrush x:Key="TextBrightBrush" Color="{StaticResource TextBrightColor}"/>
+    <SolidColorBrush x:Key="UserPromptBrightBrush" Color="{StaticResource UserPromptBrightColor}"/>
+    <SolidColorBrush x:Key="ToolMutedBrush" Color="{StaticResource ToolMutedColor}"/>
+    <SolidColorBrush x:Key="DeliveryMutedBrush" Color="{StaticResource DeliveryMutedColor}"/>
+    <SolidColorBrush x:Key="CyanMutedBrush" Color="{StaticResource CyanMutedColor}"/>
+
+    <!-- Semantic extras -->
+    <SolidColorBrush x:Key="PanelFrameBrush" Color="{StaticResource CyanColor}"/>
+    <SolidColorBrush x:Key="PanelFrameDimBrush" Color="{StaticResource CyanDimColor}"/>
+    <SolidColorBrush x:Key="PanelTitleBrush" Color="{StaticResource BgPanelColor}"/>
+    <SolidColorBrush x:Key="DimOverlayBrush" Color="{StaticResource DimOverlayColor}"/>
+    <SolidColorBrush x:Key="HairlineBrush" Color="{StaticResource HairlineColor}"/>
+    <SolidColorBrush x:Key="CyanFaintGlowBrush" Color="{StaticResource CyanFaintGlowColor}"/>
+
+    <!-- Status brushes: "Status." + status word -->
+    <SolidColorBrush x:Key="Status.running" Color="{StaticResource CyanColor}"/>
+    <SolidColorBrush x:Key="Status.thinking" Color="{StaticResource TextDimColor}"/>
+    <SolidColorBrush x:Key="Status.tool" Color="{StaticResource AmberColor}"/>
+    <SolidColorBrush x:Key="Status.waiting" Color="{StaticResource TextDimColor}"/>
+    <SolidColorBrush x:Key="Status.done" Color="{StaticResource GreenColor}"/>
+    <SolidColorBrush x:Key="Status.failed" Color="{StaticResource RedColor}"/>
+    <SolidColorBrush x:Key="Status.idle" Color="{StaticResource CyanDimColor}"/>
+    <SolidColorBrush x:Key="Status.gone" Color="{StaticResource TextFaintColor}"/>
+    <SolidColorBrush x:Key="Status.completed" Color="{StaticResource GreenColor}"/>
+    <SolidColorBrush x:Key="Status.killed" Color="{StaticResource RedColor}"/>
+    <SolidColorBrush x:Key="Status.error" Color="{StaticResource RedColor}"/>
+    <SolidColorBrush x:Key="Status.working" Color="{StaticResource AmberColor}"/>
+    <SolidColorBrush x:Key="Status.pending" Color="{StaticResource CyanDimColor}"/>
+
+    <!-- Markdown -->
+    <SolidColorBrush x:Key="MdTableHeaderFillBrush" Color="{StaticResource MdTableHeaderFillColor}"/>
+    <SolidColorBrush x:Key="MdTableHeaderTextBrush" Color="{StaticResource MdTableHeaderTextColor}"/>
+    <SolidColorBrush x:Key="MdCodeBgBrush" Color="{StaticResource MdCodeBgColor}"/>
+    <SolidColorBrush x:Key="MdCodeTextBrush" Color="{StaticResource MdCodeTextColor}"/>
+    <SolidColorBrush x:Key="MdInlineCodeBgBrush" Color="{StaticResource MdInlineCodeBgColor}"/>
+    <SolidColorBrush x:Key="MdLinkBrush" Color="{StaticResource MdLinkColor}"/>
+    <SolidColorBrush x:Key="MdBulletBrush" Color="{StaticResource MdBulletColor}"/>
+    <SolidColorBrush x:Key="MdHeadingBrush" Color="{StaticResource MdHeadingColor}"/>
+    <SolidColorBrush x:Key="MdTableBorderBrush" Color="{StaticResource MdTableBorderColor}"/>
+    <SolidColorBrush x:Key="MdCodeBlockBorderBrush" Color="{StaticResource MdCodeBlockBorderColor}"/>
+    <SolidColorBrush x:Key="MdQuoteBarBrush" Color="{StaticResource CyanDimColor}"/>
+    <SolidColorBrush x:Key="MdTableHeaderBgBrush" Color="{StaticResource MdTableHeaderFillColor}"/>
+    <SolidColorBrush x:Key="MdCodeBlockBgBrush" Color="{StaticResource MdCodeBgColor}"/>
+
+    <SolidColorBrush x:Key="LogSelectionBrush" Color="{StaticResource LogSelectionColor}"/>
+
+    <ctl:StatusBrushConverter x:Key="StatusBrushConverter"/>
+
+</ResourceDictionary>

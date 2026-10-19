@@ -1,0 +1,7 @@
+{
+  "name": "agent-team",
+  "version": "0.1.0",
+  "description": "Live pane of the lead and every spawned agent: status, current step, click to view its transcript.",
+  "author": { "name": "Vlad" },
+  "types": "./types/index.d.ts"
+}

@@ -1,0 +1,10 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="AgentTeamViewer.App"
+             RequestedThemeVariant="Dark">
+    <Application.Styles>
+        <FluentTheme />
+        <!-- Theme/ is owned by avalonia-fx: one entry point that merges colours, brushes, typography and styles. -->
+        <StyleInclude Source="avares://AgentTeamViewer.Avalonia/Theme/Theme.axaml" />
+    </Application.Styles>
+</Application>

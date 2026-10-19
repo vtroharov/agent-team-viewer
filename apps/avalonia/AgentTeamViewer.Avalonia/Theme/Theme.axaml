@@ -1,0 +1,18 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Single entry point: App.axaml includes this after the base theme. Order matters:
+         Brushes use the colours, styles use the brushes and fonts. -->
+    <Styles.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://AgentTeamViewer.Avalonia/Theme/Colors.axaml"/>
+                <ResourceInclude Source="avares://AgentTeamViewer.Avalonia/Theme/Brushes.axaml"/>
+                <ResourceInclude Source="avares://AgentTeamViewer.Avalonia/Theme/Typography.axaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Styles.Resources>
+
+    <StyleInclude Source="avares://AgentTeamViewer.Avalonia/Theme/Styles.axaml"/>
+    <StyleInclude Source="avares://AgentTeamViewer.Avalonia/Theme/Text.axaml"/>
+</Styles>

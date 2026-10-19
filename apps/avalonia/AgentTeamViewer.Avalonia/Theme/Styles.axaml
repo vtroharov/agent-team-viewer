@@ -1,0 +1,299 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ctl="using:AgentTeamViewer.Controls">
+
+    <!-- Text rendering: sub-pixel (LCD) antialiasing, closest to WPF ClearType. It only applies to text drawn
+         over an opaque background, so panels and cards keep opaque fills. RenderOptions is inherited. -->
+    <Style Selector="Window">
+        <Setter Property="ctl:TextRender.Mode" Value="SubpixelAntialias"/>
+    </Style>
+
+    <!-- Panels. Classes replace the WPF keyed styles: terminal-panel, terminal-card, card-panel,
+         card-panel-header, panel-title-bar, tag-chip, hairline. -->
+
+    <!-- Full terminal panel: near-black body, thin cyan frame, soft outer glow -->
+    <Style Selector="Border.terminal-panel">
+        <Setter Property="Background" Value="{DynamicResource BgTerminalBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource PanelFrameBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="6"/>
+        <Setter Property="BoxShadow" Value="0 0 18 0 #734FD9FF"/>
+    </Style>
+
+    <!-- Compact agent card: dimmer until hovered or class "selected" -->
+    <Style Selector="Border.terminal-card">
+        <Setter Property="Background" Value="{DynamicResource BgTerminalBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource PanelFrameDimBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="5"/>
+        <Setter Property="Padding" Value="10,7"/>
+        <Setter Property="Opacity" Value="0.82"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="BoxShadow" Value="0 0 14 0 #004FD9FF"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.15"/>
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.15"/>
+                <BoxShadowsTransition Property="BoxShadow" Duration="0:0:0.15"/>
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Border.terminal-card:pointerover">
+        <Setter Property="BorderBrush" Value="{DynamicResource PanelFrameBrush}"/>
+        <Setter Property="Opacity" Value="1"/>
+        <Setter Property="BoxShadow" Value="0 0 14 0 #664FD9FF"/>
+    </Style>
+    <Style Selector="Border.terminal-card.selected">
+        <Setter Property="BorderBrush" Value="{DynamicResource PanelFrameBrush}"/>
+        <Setter Property="Opacity" Value="1"/>
+        <Setter Property="BoxShadow" Value="0 0 14 0 #804FD9FF"/>
+    </Style>
+
+    <!-- Large version of a card: lead panel and expanded agent view. No glow, no hover change. -->
+    <Style Selector="Border.card-panel">
+        <Setter Property="Background" Value="{DynamicResource BgTerminalBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource PanelFrameDimBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="5"/>
+    </Style>
+
+    <!-- Header row of a card-panel -->
+    <Style Selector="Border.card-panel-header">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource HairlineBrush}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <Setter Property="Padding" Value="10,7"/>
+    </Style>
+
+    <!-- Title bar strip at the top of a panel -->
+    <Style Selector="Border.panel-title-bar">
+        <Setter Property="Background" Value="{DynamicResource PanelTitleBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource HairlineBrush}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        <Setter Property="CornerRadius" Value="6,6,0,0"/>
+        <Setter Property="Padding" Value="10,6"/>
+    </Style>
+
+    <!-- Markdown containers. Table: outer Border has top+left hairline, cells add right+bottom, so lines are 1px everywhere. -->
+    <Style Selector="Border.md-table">
+        <Setter Property="BorderBrush" Value="{DynamicResource HairlineBrush}"/>
+        <Setter Property="BorderThickness" Value="1,1,0,0"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+    <Style Selector="Border.md-table-cell">
+        <Setter Property="BorderBrush" Value="{DynamicResource HairlineBrush}"/>
+        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+        <Setter Property="Padding" Value="10,5"/>
+    </Style>
+    <Style Selector="Border.md-table-header-cell">
+        <Setter Property="BorderBrush" Value="{DynamicResource HairlineBrush}"/>
+        <Setter Property="BorderThickness" Value="0,0,1,1"/>
+        <Setter Property="Padding" Value="10,5"/>
+        <Setter Property="Background" Value="{DynamicResource MdTableHeaderFillBrush}"/>
+    </Style>
+    <Style Selector="Border.md-code-block">
+        <Setter Property="Background" Value="{DynamicResource MdCodeBgBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource PanelFrameDimBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Padding" Value="10,8"/>
+    </Style>
+    <Style Selector="Border.md-inline-code-chip">
+        <Setter Property="Background" Value="{DynamicResource MdInlineCodeBgBrush}"/>
+        <Setter Property="CornerRadius" Value="3"/>
+        <Setter Property="Padding" Value="5,0"/>
+    </Style>
+    <Style Selector="TextBlock.md-link:pointerover">
+        <Setter Property="Foreground" Value="{DynamicResource CyanBrush}"/>
+    </Style>
+
+    <!-- Small type / teammate tag -->
+    <Style Selector="Border.tag-chip">
+        <Setter Property="BorderBrush" Value="{DynamicResource CyanDimBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="3"/>
+        <Setter Property="Padding" Value="5,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- 1px separator -->
+    <Style Selector="Rectangle.hairline">
+        <Setter Property="Height" Value="1"/>
+        <Setter Property="Fill" Value="{DynamicResource HairlineBrush}"/>
+    </Style>
+
+    <Style Selector="ScrollViewer.terminal">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+        <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+    </Style>
+
+    <!-- Buttons -->
+    <Style Selector="Button.ghost">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeCard}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextDimBrush}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="8,3"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="Bd" Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="3" Padding="{TemplateBinding Padding}">
+                    <ContentPresenter Name="Presenter" Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      Foreground="{TemplateBinding Foreground}"
+                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    <Style Selector="Button.ghost:pointerover /template/ Border#Bd">
+        <Setter Property="BorderBrush" Value="{DynamicResource CyanDimBrush}"/>
+    </Style>
+    <Style Selector="Button.ghost:pointerover /template/ ContentPresenter#Presenter">
+        <Setter Property="Foreground" Value="{DynamicResource CyanBrush}"/>
+    </Style>
+    <Style Selector="Button.ghost:pressed /template/ Border#Bd">
+        <Setter Property="Background" Value="{DynamicResource HairlineBrush}"/>
+    </Style>
+    <Style Selector="Button.ghost:disabled /template/ ContentPresenter#Presenter">
+        <Setter Property="Foreground" Value="{DynamicResource TextFaintBrush}"/>
+    </Style>
+
+    <!-- Code-block copy button: a ghost button with no chrome, dim until hovered. Opacity comes from here, so do not set it in code. -->
+    <Style Selector="Button.md-copy-button">
+        <Setter Property="Padding" Value="6,1"/>
+        <Setter Property="MinWidth" Value="0"/>
+        <Setter Property="MinHeight" Value="0"/>
+        <Setter Property="Opacity" Value="0.7"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.12"/>
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Button.md-copy-button:pointerover">
+        <Setter Property="Opacity" Value="1"/>
+    </Style>
+
+    <!-- Context menus (MenuFlyout / ContextMenu): mono 12px, BgPanel with a CyanDim frame, Hairline hover. -->
+    <Style Selector="MenuFlyoutPresenter">
+        <Setter Property="Background" Value="{DynamicResource BgPanelBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource CyanDimBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Padding" Value="2"/>
+        <Setter Property="MinWidth" Value="0"/>
+    </Style>
+    <Style Selector="ContextMenu">
+        <Setter Property="Background" Value="{DynamicResource BgPanelBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource CyanDimBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Padding" Value="2"/>
+        <Setter Property="MinWidth" Value="0"/>
+    </Style>
+    <Style Selector="MenuItem">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeCard}"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+        <Setter Property="Padding" Value="10,3"/>
+        <Setter Property="MinHeight" Value="0"/>
+        <Setter Property="Height" Value="NaN"/>
+    </Style>
+    <Style Selector="MenuItem:pointerover, MenuItem:selected">
+        <Setter Property="Foreground" Value="{DynamicResource CyanBrush}"/>
+    </Style>
+    <Style Selector="MenuItem:pointerover /template/ Border#PART_LayoutRoot, MenuItem:selected /template/ Border#PART_LayoutRoot">
+        <Setter Property="Background" Value="{DynamicResource HairlineBrush}"/>
+    </Style>
+
+    <!-- Scrollbars: 8px, no buttons, rounded CyanDim thumb, Cyan on hover. Implicit for every ScrollBar. -->
+    <Styles.Resources>
+        <ControlTheme x:Key="DarkScrollThumb" TargetType="Thumb">
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Name="Pill" Background="{DynamicResource CyanDimBrush}" CornerRadius="4" Opacity="0.6" Margin="1"/>
+                </ControlTemplate>
+            </Setter>
+            <Style Selector="^:pointerover /template/ Border#Pill">
+                <Setter Property="Background" Value="{DynamicResource CyanBrush}"/>
+                <Setter Property="Opacity" Value="0.9"/>
+            </Style>
+            <Style Selector="^:pressed /template/ Border#Pill">
+                <Setter Property="Background" Value="{DynamicResource CyanBrush}"/>
+                <Setter Property="Opacity" Value="1"/>
+            </Style>
+        </ControlTheme>
+
+        <ControlTheme x:Key="DarkScrollPage" TargetType="RepeatButton">
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Background="Transparent"/>
+                </ControlTemplate>
+            </Setter>
+        </ControlTheme>
+
+        <ControlTheme x:Key="{x:Type ScrollBar}" TargetType="ScrollBar">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Opacity" Value="0.7"/>
+            <Style Selector="^:pointerover">
+                <Setter Property="Opacity" Value="1"/>
+            </Style>
+            <Style Selector="^:vertical">
+                <Setter Property="Width" Value="8"/>
+                <Setter Property="MinWidth" Value="8"/>
+                <Setter Property="Template">
+                    <ControlTemplate>
+                        <Grid Background="{TemplateBinding Background}">
+                            <Track Minimum="{TemplateBinding Minimum}" Maximum="{TemplateBinding Maximum}"
+                                   Value="{TemplateBinding Value, Mode=TwoWay}"
+                                   ViewportSize="{TemplateBinding ViewportSize}"
+                                   Orientation="{TemplateBinding Orientation}"
+                                   IsDirectionReversed="True">
+                                <Track.DecreaseButton>
+                                    <RepeatButton Name="PART_PageUpButton" Theme="{StaticResource DarkScrollPage}"/>
+                                </Track.DecreaseButton>
+                                <Track.IncreaseButton>
+                                    <RepeatButton Name="PART_PageDownButton" Theme="{StaticResource DarkScrollPage}"/>
+                                </Track.IncreaseButton>
+                                <Thumb Theme="{StaticResource DarkScrollThumb}"/>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter>
+            </Style>
+            <Style Selector="^:horizontal">
+                <Setter Property="Height" Value="8"/>
+                <Setter Property="MinHeight" Value="8"/>
+                <Setter Property="Template">
+                    <ControlTemplate>
+                        <Grid Background="{TemplateBinding Background}">
+                            <Track Minimum="{TemplateBinding Minimum}" Maximum="{TemplateBinding Maximum}"
+                                   Value="{TemplateBinding Value, Mode=TwoWay}"
+                                   ViewportSize="{TemplateBinding ViewportSize}"
+                                   Orientation="{TemplateBinding Orientation}">
+                                <Track.DecreaseButton>
+                                    <RepeatButton Name="PART_PageLeftButton" Theme="{StaticResource DarkScrollPage}"/>
+                                </Track.DecreaseButton>
+                                <Track.IncreaseButton>
+                                    <RepeatButton Name="PART_PageRightButton" Theme="{StaticResource DarkScrollPage}"/>
+                                </Track.IncreaseButton>
+                                <Thumb Theme="{StaticResource DarkScrollThumb}"/>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter>
+            </Style>
+        </ControlTheme>
+    </Styles.Resources>
+
+</Styles>

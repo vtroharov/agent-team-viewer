@@ -1,0 +1,240 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Typography: TextBlock classes. Each class is complete (no need to combine them).
+         LetterSpacing nudges Cascadia Mono advance (0.586 em) to a whole pixel at 100% scale, as WPF Display
+         formatting does: 13px 7.62 to 8, 12px 7.03 to 7, 11px 6.45 to 6, 10px 5.86 to 6. Keeps glyphs on the pixel grid. -->
+
+    <Style Selector="TextBlock.terminal">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeBody}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="LineHeight" Value="19"/>
+        <Setter Property="LetterSpacing" Value="0.383"/>
+    </Style>
+
+    <Style Selector="TextBlock.prompt">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeBody}"/>
+        <Setter Property="Foreground" Value="{DynamicResource UserPromptBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="LineHeight" Value="19"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="LetterSpacing" Value="0.383"/>
+    </Style>
+
+    <Style Selector="TextBlock.thinking">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeBody}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextThinkingBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="LineHeight" Value="19"/>
+        <Setter Property="FontStyle" Value="Italic"/>
+        <Setter Property="LetterSpacing" Value="0.383"/>
+    </Style>
+
+    <Style Selector="TextBlock.body">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeBody}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="LineHeight" Value="19"/>
+        <Setter Property="LetterSpacing" Value="0.383"/>
+    </Style>
+
+    <Style Selector="TextBlock.tool">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeBody}"/>
+        <Setter Property="Foreground" Value="{DynamicResource ToolMutedBrush}"/>
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+        <Setter Property="LineHeight" Value="19"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Setter Property="LetterSpacing" Value="0.383"/>
+    </Style>
+
+    <Style Selector="TextBlock.tool-result">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeCard}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextDimBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="LineHeight" Value="17"/>
+        <Setter Property="LetterSpacing" Value="-0.031"/>
+    </Style>
+
+    <Style Selector="TextBlock.delivery">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeBody}"/>
+        <Setter Property="Foreground" Value="{DynamicResource DeliveryMutedBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="LineHeight" Value="19"/>
+        <Setter Property="FontStyle" Value="Italic"/>
+        <Setter Property="LetterSpacing" Value="0.383"/>
+    </Style>
+
+    <Style Selector="TextBlock.notice">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeSmall}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextDimBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="LineHeight" Value="16"/>
+        <Setter Property="FontStyle" Value="Italic"/>
+        <Setter Property="LetterSpacing" Value="-0.445"/>
+    </Style>
+
+    <Style Selector="TextBlock.panel-title">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeTitle}"/>
+        <Setter Property="Foreground" Value="{DynamicResource CyanMutedBrush}"/>
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+        <Setter Property="LineHeight" Value="19"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="LetterSpacing" Value="-0.031"/>
+    </Style>
+
+    <Style Selector="TextBlock.activity">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeCard}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextDimBrush}"/>
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+        <Setter Property="LineHeight" Value="19"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="LetterSpacing" Value="-0.031"/>
+    </Style>
+
+    <Style Selector="TextBlock.card-title">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeCard}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+        <Setter Property="LineHeight" Value="19"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="LetterSpacing" Value="-0.031"/>
+    </Style>
+
+    <Style Selector="TextBlock.card-line">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeCard}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextDimBrush}"/>
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+        <Setter Property="LineHeight" Value="17"/>
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Setter Property="LetterSpacing" Value="-0.031"/>
+    </Style>
+
+    <Style Selector="TextBlock.tag">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeTag}"/>
+        <Setter Property="Foreground" Value="{DynamicResource CyanDimBrush}"/>
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+        <Setter Property="LineHeight" Value="14"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="LetterSpacing" Value="0.141"/>
+    </Style>
+
+    <Style Selector="TextBlock.elapsed">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeSmall}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextDimBrush}"/>
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+        <Setter Property="LineHeight" Value="19"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="LetterSpacing" Value="-0.445"/>
+    </Style>
+
+    <Style Selector="TextBlock.md-h1">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="17"/>
+        <Setter Property="Foreground" Value="{DynamicResource MdHeadingBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="LineHeight" Value="24"/>
+        <Setter Property="LetterSpacing" Value="0.04"/>
+    </Style>
+
+    <Style Selector="TextBlock.md-h2">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Foreground" Value="{DynamicResource MdHeadingBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="LineHeight" Value="22"/>
+        <Setter Property="LetterSpacing" Value="0.211"/>
+    </Style>
+
+    <Style Selector="TextBlock.md-h3">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{DynamicResource MdHeadingBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="LineHeight" Value="20"/>
+        <Setter Property="LetterSpacing" Value="-0.203"/>
+    </Style>
+
+    <Style Selector="TextBlock.md-code">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="{DynamicResource MdCodeTextBrush}"/>
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+        <Setter Property="LineHeight" Value="17"/>
+        <Setter Property="LetterSpacing" Value="-0.031"/>
+    </Style>
+
+    <Style Selector="TextBlock.md-inline-code">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="{DynamicResource MdCodeTextBrush}"/>
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+        <Setter Property="LineHeight" Value="19"/>
+        <Setter Property="LetterSpacing" Value="-0.031"/>
+    </Style>
+
+    <Style Selector="TextBlock.md-bullet">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeBody}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MdBulletBrush}"/>
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+        <Setter Property="LineHeight" Value="19"/>
+        <Setter Property="LetterSpacing" Value="0.383"/>
+    </Style>
+
+    <Style Selector="TextBlock.md-table-header">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="{DynamicResource MdTableHeaderTextBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="LineHeight" Value="17"/>
+        <Setter Property="LetterSpacing" Value="-0.031"/>
+    </Style>
+
+    <Style Selector="TextBlock.md-table-cell-text">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="LineHeight" Value="17"/>
+        <Setter Property="LetterSpacing" Value="-0.031"/>
+    </Style>
+
+    <Style Selector="TextBlock.md-quote">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeBody}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextDimBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="LineHeight" Value="19"/>
+        <Setter Property="LetterSpacing" Value="0.383"/>
+    </Style>
+
+    <Style Selector="TextBlock.md-link">
+        <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource FontSizeBody}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MdLinkBrush}"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="LineHeight" Value="19"/>
+        <Setter Property="TextDecorations" Value="Underline"/>
+        <Setter Property="LetterSpacing" Value="0.383"/>
+    </Style>
+
+</Styles>

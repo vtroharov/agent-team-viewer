@@ -1,0 +1,229 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ctl="using:AgentTeamViewer.Controls"
+             x:Class="AgentTeamViewer.Controls.Gallery"
+             x:CompileBindings="False">
+
+    <!-- Shows every theme style and control in sample states. Not wired into the app: drop it into any window. -->
+    <ScrollViewer Classes="terminal" Background="{DynamicResource BgDeepBrush}">
+        <StackPanel Margin="24" Spacing="22" MaxWidth="1100" HorizontalAlignment="Left">
+
+            <TextBlock Classes="panel-title" Text="AGENT TEAM VIEWER · THEME + CONTROLS GALLERY"/>
+
+            <!-- Palette -->
+            <StackPanel Spacing="8">
+                <TextBlock Classes="notice" Text="Colour tokens"/>
+                <WrapPanel x:Name="Swatches"/>
+            </StackPanel>
+
+            <!-- Typography -->
+            <StackPanel Spacing="4">
+                <TextBlock Classes="notice" Text="Typography classes"/>
+                <Border Classes="card-panel" Padding="12">
+                    <StackPanel Spacing="2">
+                        <TextBlock Classes="prompt" Text="prompt: the user asks a question"/>
+                        <TextBlock Classes="thinking" Text="thinking: reasoning about which agent should take this"/>
+                        <TextBlock Classes="body" Text="body: assistant text in the soft light blue"/>
+                        <TextBlock Classes="tool" Text="tool: Read C:\src\Program.cs (120 lines)"/>
+                        <TextBlock Classes="tool-result" Text="tool-result: 120 lines read in 4 ms"/>
+                        <TextBlock Classes="delivery" Text="delivery: message from researcher: done, 3 findings"/>
+                        <TextBlock Classes="notice" Text="notice: hook added context"/>
+                        <TextBlock Classes="panel-title" Text="panel-title: LEAD · Claude"/>
+                        <TextBlock Classes="activity" Text="activity: running Bash"/>
+                        <TextBlock Classes="card-title" Text="card-title: researcher"/>
+                        <TextBlock Classes="card-line" Text="card-line: reading the feed contract"/>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Border Classes="tag-chip"><TextBlock Classes="tag" Text="tag"/></Border>
+                            <TextBlock Classes="elapsed" Text="elapsed: 1m 12s"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- Markdown -->
+            <StackPanel Spacing="8">
+                <TextBlock Classes="notice" Text="Markdown classes: md-h1..3, md-bullet, md-link, md-inline-code-chip, md-code-block, md-table"/>
+                <Border Classes="card-panel" Padding="14">
+                    <StackPanel Spacing="8">
+                        <TextBlock Classes="md-h1" Text="Heading 1"/>
+                        <TextBlock Classes="md-h2" Text="Heading 2"/>
+                        <TextBlock Classes="md-h3" Text="Heading 3"/>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock Classes="md-bullet" Text="•"/>
+                            <TextBlock Classes="body" Text="a list item with"/>
+                            <Border Classes="md-inline-code-chip"><TextBlock Classes="md-inline-code" Text="inline_code()"/></Border>
+                            <TextBlock Classes="body" Text="and"/>
+                            <TextBlock Classes="md-link" Text="a link"/>
+                        </StackPanel>
+                        <TextBlock Classes="md-quote" Text="md-quote: a quoted line in the dim colour"/>
+                        <Border Classes="md-code-block" HorizontalAlignment="Left">
+                            <TextBlock Classes="md-code" Text="fn flush(buf: &amp;mut Vec&lt;u8&gt;) {&#10;    buf.clear();&#10;}"/>
+                        </Border>
+                        <Border Classes="md-table">
+                            <Grid ColumnDefinitions="Auto,Auto,Auto" RowDefinitions="Auto,Auto,Auto">
+                                <Border Grid.Row="0" Grid.Column="0" Classes="md-table-header-cell"><TextBlock Classes="md-table-header" Text="Name"/></Border>
+                                <Border Grid.Row="0" Grid.Column="1" Classes="md-table-header-cell"><TextBlock Classes="md-table-header" Text="Status"/></Border>
+                                <Border Grid.Row="0" Grid.Column="2" Classes="md-table-header-cell"><TextBlock Classes="md-table-header" Text="Time"/></Border>
+                                <Border Grid.Row="1" Grid.Column="0" Classes="md-table-cell"><TextBlock Classes="md-table-cell-text" Text="scout"/></Border>
+                                <Border Grid.Row="1" Grid.Column="1" Classes="md-table-cell"><TextBlock Classes="md-table-cell-text" Text="done"/></Border>
+                                <Border Grid.Row="1" Grid.Column="2" Classes="md-table-cell"><TextBlock Classes="md-table-cell-text" Text="2.8s"/></Border>
+                                <Border Grid.Row="2" Grid.Column="0" Classes="md-table-cell"><TextBlock Classes="md-table-cell-text" Text="viewer-fx"/></Border>
+                                <Border Grid.Row="2" Grid.Column="1" Classes="md-table-cell"><TextBlock Classes="md-table-cell-text" Text="running"/></Border>
+                                <Border Grid.Row="2" Grid.Column="2" Classes="md-table-cell"><TextBlock Classes="md-table-cell-text" Text="10.1s"/></Border>
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- Menu + copy button -->
+            <StackPanel Spacing="8">
+                <TextBlock Classes="notice" Text="Context menu (MenuFlyoutPresenter) and the md-copy-button"/>
+                <StackPanel Orientation="Horizontal" Spacing="24">
+                    <MenuFlyoutPresenter HorizontalAlignment="Left">
+                        <MenuItem Header="Copy"/>
+                        <MenuItem Header="Copy block"/>
+                    </MenuFlyoutPresenter>
+                    <Border Classes="md-code-block" Width="220">
+                        <Grid>
+                            <TextBlock Classes="md-code" Text="let x = 1;"/>
+                            <Button Classes="ghost md-copy-button" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-6,-6,0">
+                                <TextBlock Classes="tag" Text="copy"/>
+                            </Button>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- Panels -->
+            <StackPanel Spacing="8">
+                <TextBlock Classes="notice" Text="Panels: terminal-panel, terminal-card (rest, hover, selected), card-panel"/>
+                <StackPanel Orientation="Horizontal" Spacing="22" Margin="6">
+                    <Border Classes="terminal-panel" Width="260" Height="110">
+                        <DockPanel>
+                            <Border DockPanel.Dock="Top" Classes="panel-title-bar">
+                                <StackPanel Orientation="Horizontal" Spacing="10">
+                                    <ctl:WindowDots/>
+                                    <TextBlock Classes="panel-title" Text="LEAD · Claude"/>
+                                </StackPanel>
+                            </Border>
+                            <TextBlock Classes="body" Margin="10" Text="terminal-panel with glow"/>
+                        </DockPanel>
+                    </Border>
+
+                    <StackPanel Spacing="10" Width="260">
+                        <Border Classes="terminal-card">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <ctl:StatusGlyph Mode="Ready" Status="running"/>
+                                    <TextBlock Classes="card-title" Text="terminal-card (hover me)"/>
+                                </StackPanel>
+                                <TextBlock Classes="card-line" Text="rest state, dim"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Classes="terminal-card selected">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <ctl:StatusGlyph Mode="Ready" Status="done"/>
+                                    <TextBlock Classes="card-title" Text="terminal-card selected"/>
+                                </StackPanel>
+                                <TextBlock Classes="card-line" Text="forced hover look"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <Border Classes="card-panel" Width="260" Height="110">
+                        <DockPanel>
+                            <Border DockPanel.Dock="Top" Classes="card-panel-header">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <ctl:StatusGlyph Status="tool"/>
+                                    <TextBlock Classes="card-title" Text="card-panel"/>
+                                    <Border Classes="tag-chip"><TextBlock Classes="tag" Text="teammate"/></Border>
+                                    <TextBlock Classes="elapsed" Text="42s"/>
+                                </StackPanel>
+                            </Border>
+                            <Rectangle DockPanel.Dock="Top" Classes="hairline" Margin="10,6"/>
+                            <Button Classes="ghost" Content="ghost button" HorizontalAlignment="Left" Margin="8"/>
+                        </DockPanel>
+                    </Border>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- WindowDots + GlowBorder -->
+            <StackPanel Spacing="8">
+                <TextBlock Classes="notice" Text="WindowDots (normal, Dim) and GlowBorder (static, Breathing, Flash)"/>
+                <StackPanel Orientation="Horizontal" Spacing="26" Margin="6">
+                    <StackPanel Spacing="8" VerticalAlignment="Center">
+                        <ctl:WindowDots/>
+                        <ctl:WindowDots Dim="True"/>
+                    </StackPanel>
+                    <ctl:GlowBorder Width="170" Height="70" Padding="10">
+                        <TextBlock Classes="body" Text="GlowBorder static"/>
+                    </ctl:GlowBorder>
+                    <ctl:GlowBorder Width="170" Height="70" Padding="10" Breathing="True">
+                        <TextBlock Classes="body" Text="Breathing"/>
+                    </ctl:GlowBorder>
+                    <ctl:GlowBorder x:Name="FlashBox" Width="170" Height="70" Padding="10" GlowColor="#FF4CE0A6" BorderBrush="{DynamicResource GreenBrush}">
+                        <TextBlock Classes="body" Text="Flash (green)"/>
+                    </ctl:GlowBorder>
+                    <Button x:Name="FlashButton" Classes="ghost" Content="Flash()" VerticalAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- StatusGlyph -->
+            <StackPanel Spacing="8">
+                <TextBlock Classes="notice" Text="StatusGlyph: Glyph 12 / 20, Ready 12 / 20 (green dot ready, gear working, red failed, hollow gone)"/>
+                <WrapPanel x:Name="Glyphs"/>
+            </StackPanel>
+
+            <!-- HubRing -->
+            <StackPanel Spacing="8">
+                <TextBlock Classes="notice" Text="HubRing: rest, Breathe, Spin, Breathe + Spin (resting motion is always on)"/>
+                <StackPanel Orientation="Horizontal" Spacing="12">
+                    <ctl:HubRing Width="170" Height="190" Caption="REST"/>
+                    <ctl:HubRing Width="170" Height="190" Breathe="True" Caption="BREATHE"/>
+                    <ctl:HubRing Width="170" Height="190" Spin="True" Caption="SPIN"/>
+                    <ctl:HubRing Width="170" Height="190" Breathe="True" Spin="True" Accent="#FFFFB347" Caption="BOTH"/>
+                </StackPanel>
+            </StackPanel>
+
+            <!-- ConnectorLayer -->
+            <StackPanel Spacing="8">
+                <TextBlock Classes="notice" Text="ConnectorLayer: idle flow, Pulse (auto every 1.6 s), Branch edge, temporary dashed edge"/>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button x:Name="PulseMainA" Classes="ghost" Content="Pulse main→A"/>
+                    <Button x:Name="PulseBackA" Classes="ghost" Content="Pulse A→main (reverse)"/>
+                    <Button x:Name="PulseBranch" Classes="ghost" Content="Pulse A→C (branch)"/>
+                    <Button x:Name="PulseTemp" Classes="ghost" Content="Pulse main→C (temp edge)"/>
+                    <Button x:Name="ClearButton" Classes="ghost" Content="Clear()"/>
+                    <Button x:Name="RebuildButton" Classes="ghost" Content="Rebuild"/>
+                </StackPanel>
+                <Grid x:Name="Stage" Width="760" Height="340" HorizontalAlignment="Left" Background="{DynamicResource BgDeepBrush}">
+                    <Border x:Name="MainBox" Classes="terminal-panel" Width="170" Height="150" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock Classes="panel-title" Text="LEAD · main" Margin="10"/>
+                    </Border>
+                    <ctl:HubRing x:Name="Hub" Width="120" Height="120" Breathe="True" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="270,0,0,0"/>
+                    <Border x:Name="BoxA" Classes="terminal-card" Width="200" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,24,0,0">
+                        <StackPanel>
+                            <TextBlock Classes="card-title" Text="agent A"/>
+                            <TextBlock Classes="card-line" Text="working on the parser"/>
+                        </StackPanel>
+                    </Border>
+                    <Border x:Name="BoxB" Classes="terminal-card" Width="200" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,60">
+                        <StackPanel>
+                            <TextBlock Classes="card-title" Text="agent B"/>
+                            <TextBlock Classes="card-line" Text="reviewing"/>
+                        </StackPanel>
+                    </Border>
+                    <Border x:Name="BoxC" Classes="terminal-card" Width="170" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,100,0,0">
+                        <StackPanel>
+                            <TextBlock Classes="card-title" Text="agent C (nested in A)"/>
+                            <TextBlock Classes="card-line" Text="branch edge"/>
+                        </StackPanel>
+                    </Border>
+                    <ctl:ConnectorLayer x:Name="Connectors" HubRadius="57"/>
+                </Grid>
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

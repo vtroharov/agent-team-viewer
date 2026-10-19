@@ -1,0 +1,82 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="using:AgentTeamViewer.Views"
+             xmlns:vm="using:AgentTeamViewer.ViewModels"
+             xmlns:ctl="using:AgentTeamViewer.Controls"
+             x:Class="AgentTeamViewer.Views.AgentCard"
+             x:DataType="vm:AgentCardViewModel"
+             Focusable="False">
+    <!-- DataContext: ViewModels.AgentCardViewModel -->
+    <UserControl.Styles>
+        <!-- dismiss X: faint until the card is hovered or expanded; never starts a drag or toggles the card -->
+        <Style Selector="Button.Dismiss">
+            <Setter Property="Padding" Value="5,0"/>
+            <Setter Property="Margin" Value="8,0,0,0"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+        <Style Selector="Border#CardBorder:pointerover Button.Dismiss">
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+        <Style Selector="Border#CardBorder.expanded Button.Dismiss">
+            <Setter Property="Opacity" Value="1"/>
+        </Style>
+        <Style Selector="Border#CardBorder Button.Dismiss:disabled">
+            <Setter Property="Opacity" Value="0"/>
+        </Style>
+        <!-- model chip: dimmed while the model is still unknown -->
+        <Style Selector="Border.ModelChip.NoModel">
+            <Setter Property="Opacity" Value="0.6"/>
+        </Style>
+    </UserControl.Styles>
+
+    <!-- nested agents are indented; the short branch connector from the parent is drawn by the ConnectorLayer -->
+    <Border x:Name="CardBorder" Classes="terminal-card" Cursor="Hand" Padding="10,7"
+            Margin="{Binding Depth, Converter={x:Static v:Converters.DepthMargin}}">
+        <Grid RowDefinitions="Auto,Auto,Auto">
+
+            <!-- title row: glyph · name · tag · model · elapsed · dismiss. Also the drag handle (press + move 4 px). -->
+            <Grid x:Name="TitleRow" Background="Transparent" ColumnDefinitions="Auto,*,Auto,Auto,Auto,Auto">
+
+                <!-- readiness at a glance: green dot = ready, gear = working, red = failed -->
+                <ctl:StatusGlyph GlyphSize="11" Mode="Ready" VerticalAlignment="Center" Margin="3,0,10,0"
+                                 Status="{Binding StatusGlyph, FallbackValue=pending}"/>
+
+                <TextBlock Grid.Column="1" Classes="card-title" VerticalAlignment="Center" Text="{Binding Name}"/>
+
+                <Border Grid.Column="2" Classes="tag-chip" VerticalAlignment="Center" Margin="8,0,8,0">
+                    <TextBlock Classes="tag" Text="{Binding Tag}"/>
+                </Border>
+
+                <Border x:Name="ModelChip" Grid.Column="3" Classes="tag-chip ModelChip" VerticalAlignment="Center" Margin="0,0,8,0">
+                    <TextBlock Classes="tag" Text="{Binding Model}"/>
+                </Border>
+
+                <TextBlock Grid.Column="4" Classes="elapsed" VerticalAlignment="Center" Text="{Binding Elapsed}"/>
+
+                <Button x:Name="DismissButton" Grid.Column="5" Classes="ghost Dismiss" Content="&#x2715;"
+                        VerticalAlignment="Center"
+                        ToolTip.Tip="Dismiss this agent: ask for a summary, stop it, pass the summary to the lead"
+                        IsEnabled="{Binding CanDismiss}"/>
+            </Grid>
+
+            <!-- last 2-3 lines (hidden while expanded: the full log below already ends with them) -->
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding LastLines}" Margin="18,4,0,0" Focusable="False"
+                          IsVisible="{Binding !IsExpanded}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <TextBlock Classes="card-line" Text="{Binding}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- expanded: the agent's full log grows in place. Visibility and the LogView height are driven
+                 from code-behind so the growth can animate. Clicks in here must not toggle the card. -->
+            <Grid x:Name="ExpandedRegion" Grid.Row="2" IsVisible="False" Cursor="Arrow" RowDefinitions="Auto,Auto">
+                <Rectangle Classes="hairline" Margin="0,8,0,6"/>
+                <v:LogView x:Name="EmbeddedLog" Grid.Row="1" Height="0" DataContext="{Binding Log}" ClipToBounds="True"/>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

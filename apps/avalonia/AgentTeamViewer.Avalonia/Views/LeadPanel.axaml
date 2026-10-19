@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="using:AgentTeamViewer.Views"
+             xmlns:vm="using:AgentTeamViewer.ViewModels"
+             xmlns:ctl="using:AgentTeamViewer.Controls"
+             x:Class="AgentTeamViewer.Views.LeadPanel"
+             x:DataType="vm:MainViewModel"
+             Focusable="False">
+    <!-- DataContext: ViewModels.MainViewModel (uses Lead and LeadLog). -->
+    <Grid>
+        <!-- Same dim frame as an agent card, no glow, no window dots. -->
+        <Border Classes="card-panel"/>
+
+        <DockPanel Margin="1">
+            <!-- the same row a card has: status dot, name, tags, model, worked time; the activity line fills the gap -->
+            <Border DockPanel.Dock="Top" Classes="card-panel-header">
+                <Grid ColumnDefinitions="Auto,Auto,Auto,Auto,*,Auto">
+                    <!-- readiness at a glance: green dot = waiting for the user, gear = working -->
+                    <ctl:StatusGlyph GlyphSize="11" Mode="Ready" Margin="3,0,10,0" VerticalAlignment="Center"
+                                     Status="{Binding Lead.StatusGlyph, FallbackValue=idle}"/>
+
+                    <TextBlock Grid.Column="1" Classes="card-title" VerticalAlignment="Center" Text="Claude"/>
+
+                    <Border Grid.Column="2" Classes="tag-chip" VerticalAlignment="Center" Margin="8,0,0,0">
+                        <TextBlock Classes="tag" Text="lead"/>
+                    </Border>
+
+                    <!-- the lead's LLM model, from the feed's optional model field -->
+                    <Border Grid.Column="3" Classes="tag-chip" VerticalAlignment="Center" Margin="8,0,0,0">
+                        <TextBlock Classes="tag" Text="{Binding Lead.Model}"/>
+                    </Border>
+
+                    <TextBlock Grid.Column="4" Classes="activity" VerticalAlignment="Center" Margin="12,0,10,0"
+                               Text="{Binding Lead.ActivityLine}"/>
+
+                    <TextBlock Grid.Column="5" Classes="elapsed" VerticalAlignment="Center"
+                               Text="{Binding Lead.Elapsed}"/>
+                </Grid>
+            </Border>
+
+            <v:LogView DataContext="{Binding LeadLog}"/>
+        </DockPanel>
+    </Grid>
+</UserControl>

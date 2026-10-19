@@ -1,0 +1,116 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="using:AgentTeamViewer.Views"
+             xmlns:m="using:AgentTeamViewer.Model"
+             xmlns:vm="using:AgentTeamViewer.ViewModels"
+             xmlns:ctl="using:AgentTeamViewer.Controls"
+             x:Class="AgentTeamViewer.Views.LogView"
+             x:DataType="vm:LogViewModel"
+             Focusable="False">
+    <!-- DataContext: ViewModels.LogViewModel (Blocks). Every colour/font comes from the Theme dictionaries. -->
+    <UserControl.Resources>
+        <!-- row door=prompt: the user's line, highlighted -->
+        <DataTemplate x:Key="PromptTemplate" x:DataType="m:LogBlock">
+            <Border BorderThickness="2,0,0,0" BorderBrush="{DynamicResource UserPromptBrush}" Padding="8,2,0,2" Margin="0,10,0,4">
+                <v:LogText Classes="prompt" Text="{Binding Text, Mode=OneWay}"/>
+            </Border>
+        </DataTemplate>
+
+        <!-- row door=delivery: incoming from another agent -->
+        <DataTemplate x:Key="DeliveryTemplate" x:DataType="m:LogBlock">
+            <Border BorderThickness="2,0,0,0" BorderBrush="{DynamicResource CyanDimBrush}" Padding="8,2,0,2" Margin="0,8,0,4">
+                <StackPanel>
+                    <TextBlock Classes="tag" Text="{Binding From, Mode=OneWay, StringFormat='← from {0}'}"/>
+                    <v:MarkdownView BaseClass="delivery" Text="{Binding Text, Mode=OneWay}"/>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+
+        <!-- notice / note / hook-context / attachment / command -->
+        <DataTemplate x:Key="NoticeTemplate" x:DataType="m:LogBlock">
+            <v:LogText Classes="notice" Margin="0,2">
+                <Run Text="· "/><Run Text="{Binding Tag, Mode=OneWay}"/><Run Text=": "/><Run Text="{Binding Text, Mode=OneWay}"/>
+            </v:LogText>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ThinkingTemplate" x:DataType="m:LogBlock">
+            <v:LogText Classes="thinking" Text="{Binding Text, Mode=OneWay}" Margin="0,3"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="TextTemplate" x:DataType="m:LogBlock">
+            <v:MarkdownView Text="{Binding Text, Mode=OneWay}" Margin="0,3"/>
+        </DataTemplate>
+
+        <!-- tool start/end: one-liner, click to expand input + result -->
+        <DataTemplate x:Key="ToolTemplate" x:DataType="m:LogBlock">
+            <StackPanel Margin="0,3">
+                <Border Classes="ToolRow" Background="Transparent" Cursor="Hand" Padding="0,1"
+                        ToolTip.Tip="{Binding ToolName}">
+                    <Grid ColumnDefinitions="14,*,Auto">
+                        <ctl:StatusGlyph GlyphSize="9" VerticalAlignment="Center" HorizontalAlignment="Left"
+                                         Status="{Binding ToolStatus, Converter={x:Static v:Converters.ToolStatusWord}}"/>
+                        <v:LogText Grid.Column="1" Classes="tool" Text="{Binding Text, Mode=OneWay}"/>
+                        <TextBlock Grid.Column="2" Classes="elapsed" Margin="10,0,0,0" Text="{Binding StatusText, Mode=OneWay}"/>
+                    </Grid>
+                </Border>
+                <Border Margin="14,2,0,2" Padding="8,6" CornerRadius="4" Background="{DynamicResource BgPanelBrush}"
+                        BorderThickness="1" BorderBrush="{DynamicResource HairlineBrush}"
+                        IsVisible="{Binding IsExpanded}">
+                    <StackPanel>
+                        <TextBlock Classes="tag" Text="input"
+                                   IsVisible="{Binding ToolInput, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                        <v:LogText Classes="tool-result" Text="{Binding ToolInput, Mode=OneWay, Converter={x:Static v:Converters.JsonPretty}}"
+                                   IsVisible="{Binding ToolInput, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Margin="0,0,0,6"/>
+                        <TextBlock Classes="tag" Text="result"
+                                   IsVisible="{Binding Result, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                        <v:LogText Classes="tool-result" Text="{Binding Result, Mode=OneWay}"
+                                   IsVisible="{Binding Result, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+                        <v:LogText Classes="notice" Text="… result truncated by the feed"
+                                   IsVisible="{Binding IsTruncated}"/>
+                        <v:LogText Classes="notice" Text="(no details)"
+                                   IsVisible="{Binding !HasDetails}"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </DataTemplate>
+
+        <!-- turn start: separator, with the task text when it was not already shown as a prompt/delivery row -->
+        <DataTemplate x:Key="TurnStartTemplate" x:DataType="m:LogBlock">
+            <StackPanel Margin="0,6,0,2">
+                <Rectangle Classes="hairline"/>
+                <v:LogText Classes="notice" Margin="0,3,0,0" Text="{Binding Text, Mode=OneWay, StringFormat='┌ {0}'}"
+                           IsVisible="{Binding Text, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+            </StackPanel>
+        </DataTemplate>
+
+        <DataTemplate x:Key="TurnEndTemplate" x:DataType="m:LogBlock">
+            <v:LogText Classes="notice" Margin="0,2,0,6" Text="{Binding StatusText, Mode=OneWay, StringFormat='└ turn {0}'}"/>
+        </DataTemplate>
+
+        <v:LogBlockTemplateSelector x:Key="BlockSelector"
+                                    Prompt="{StaticResource PromptTemplate}"
+                                    Delivery="{StaticResource DeliveryTemplate}"
+                                    Notice="{StaticResource NoticeTemplate}"
+                                    Thinking="{StaticResource ThinkingTemplate}"
+                                    Text="{StaticResource TextTemplate}"
+                                    Tool="{StaticResource ToolTemplate}"
+                                    TurnStart="{StaticResource TurnStartTemplate}"
+                                    TurnEnd="{StaticResource TurnEndTemplate}"/>
+    </UserControl.Resources>
+
+    <Grid>
+        <ScrollViewer x:Name="Scroller" Classes="terminal"
+                      VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl x:Name="Items" ItemsSource="{Binding Blocks}" ItemTemplate="{StaticResource BlockSelector}"
+                          Margin="12,6,12,10" Focusable="False"/>
+        </ScrollViewer>
+
+        <!-- shown when auto-scroll is paused and new output arrived -->
+        <Border x:Name="ResumeChip" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,12"
+                Padding="10,3" CornerRadius="10" Cursor="Hand" IsVisible="False"
+                Background="{DynamicResource BgPanelBrush}" BorderBrush="{DynamicResource CyanDimBrush}" BorderThickness="1"
+                PointerReleased="ResumeChip_Released">
+            <TextBlock Classes="tag" Text="↓ new output"/>
+        </Border>
+    </Grid>
+</UserControl>

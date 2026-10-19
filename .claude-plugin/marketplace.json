@@ -1,0 +1,17 @@
+{
+  "name": "agent-team-viewer",
+  "owner": { "name": "Vlad" },
+  "description": "Claude Code mods that publish and show a live view of an agent team, for the Agent Team Viewer desktop apps.",
+  "plugins": [
+    {
+      "name": "agent-team",
+      "source": "./mods/agent-team",
+      "description": "Live in-terminal pane of the lead and every spawned agent: status, current step, click to view its transcript."
+    },
+    {
+      "name": "agent-feed",
+      "source": "./mods/agent-feed",
+      "description": "Publishes every agent's activity as a JSONL feed under ~/.claude/agent-feed for the Agent Team Viewer apps; ships the delegate-async skill."
+    }
+  ]
+}
