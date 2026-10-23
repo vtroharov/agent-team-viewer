@@ -49,6 +49,7 @@
     <SolidColorBrush x:Key="MdTableHeaderFillBrush" Color="{StaticResource MdTableHeaderFillColor}"/>
     <SolidColorBrush x:Key="MdTableHeaderTextBrush" Color="{StaticResource MdTableHeaderTextColor}"/>
     <SolidColorBrush x:Key="MdCodeBgBrush" Color="{StaticResource MdCodeBgColor}"/>
+    <SolidColorBrush x:Key="MdCodeFadedBrush" Color="{StaticResource MdCodeFadedColor}"/>
     <SolidColorBrush x:Key="MdCodeTextBrush" Color="{StaticResource MdCodeTextColor}"/>
     <SolidColorBrush x:Key="MdInlineCodeBgBrush" Color="{StaticResource MdInlineCodeBgColor}"/>
     <SolidColorBrush x:Key="MdLinkBrush" Color="{StaticResource MdLinkColor}"/>

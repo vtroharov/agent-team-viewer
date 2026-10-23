@@ -317,7 +317,9 @@ public sealed class TeamModel : ObservableObject
 
     private void Append(AgentState a, LogBlock b)
     {
+        if (a.LastBlock is { } previous) previous.IsTail = false;
         a.Blocks.Add(b);
+        b.IsTail = true;
         BlockAppended?.Invoke(a, b);
     }
 

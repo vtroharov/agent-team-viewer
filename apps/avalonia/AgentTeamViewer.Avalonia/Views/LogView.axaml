@@ -11,30 +11,39 @@
     <UserControl.Resources>
         <!-- row door=prompt: the user's line, highlighted -->
         <DataTemplate x:Key="PromptTemplate" x:DataType="m:LogBlock">
-            <Border BorderThickness="2,0,0,0" BorderBrush="{DynamicResource UserPromptBrush}" Padding="8,2,0,2" Margin="0,10,0,4">
+            <Panel>
+                <Border BorderThickness="2,0,0,0" BorderBrush="{DynamicResource UserPromptBrush}" IsVisible="{Binding IsPlain}" Padding="8,2,0,2" Margin="0,10,0,4">
                 <v:LogText Classes="prompt" Text="{Binding Text, Mode=OneWay}"/>
             </Border>
+            <v:DisclosureBlock IsVisible="{Binding IsCollapsible}"/>
+            </Panel>
         </DataTemplate>
 
         <!-- row door=delivery: incoming from another agent -->
         <DataTemplate x:Key="DeliveryTemplate" x:DataType="m:LogBlock">
-            <Border BorderThickness="2,0,0,0" BorderBrush="{DynamicResource CyanDimBrush}" Padding="8,2,0,2" Margin="0,8,0,4">
+            <Panel>
+                <Border BorderThickness="2,0,0,0" BorderBrush="{DynamicResource CyanDimBrush}" IsVisible="{Binding IsPlain}" Padding="8,2,0,2" Margin="0,8,0,4">
                 <StackPanel>
                     <TextBlock Classes="tag" Text="{Binding From, Mode=OneWay, StringFormat='← from {0}'}"/>
                     <v:MarkdownView BaseClass="delivery" Text="{Binding Text, Mode=OneWay}"/>
                 </StackPanel>
             </Border>
+            <v:DisclosureBlock IsVisible="{Binding IsCollapsible}"/>
+            </Panel>
         </DataTemplate>
 
         <!-- notice / note / hook-context / attachment / command -->
         <DataTemplate x:Key="NoticeTemplate" x:DataType="m:LogBlock">
-            <v:LogText Classes="notice" Margin="0,2">
+            <Panel>
+            <v:DisclosureBlock IsVisible="{Binding IsCollapsible}"/>
+            <v:LogText Classes="notice" Margin="0,2" IsVisible="{Binding IsPlain}">
                 <Run Text="· "/><Run Text="{Binding Tag, Mode=OneWay}"/><Run Text=": "/><Run Text="{Binding Text, Mode=OneWay}"/>
             </v:LogText>
+            </Panel>
         </DataTemplate>
 
         <DataTemplate x:Key="ThinkingTemplate" x:DataType="m:LogBlock">
-            <v:LogText Classes="thinking" Text="{Binding Text, Mode=OneWay}" Margin="0,3"/>
+            <v:DisclosureBlock/>
         </DataTemplate>
 
         <DataTemplate x:Key="TextTemplate" x:DataType="m:LogBlock">

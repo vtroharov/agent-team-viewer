@@ -59,6 +59,50 @@ public sealed class LogBlock : ObservableObject
     public bool IsTruncated { get => _isTruncated; set => Set(ref _isTruncated, value); }
     public bool IsExpanded { get => _isExpanded; set => Set(ref _isExpanded, value); }
 
+    // ---- collapsing (deliveries, notes, thinking): state lives here so it survives re-renders and streaming ----
+
+    private bool _isOpen, _noteOpen, _isTail;
+    private Disclosure? _disclosure;
+
+    /// <summary>The last block of its agent's log: a thinking block that is the tail is still streaming, so its header follows the latest line.</summary>
+    public bool IsTail { get => _isTail; set { if (Set(ref _isTail, value)) { _disclosure = null; RaiseDisclosure(); } } }
+
+    /// <summary>Expanded (true) or collapsed (false, the default).</summary>
+    public bool IsOpen { get => _isOpen; set { if (Set(ref _isOpen, value)) RaiseDisclosure(); } }
+    /// <summary>The dim "delivery note" boilerplate of a message is shown.</summary>
+    public bool NoteOpen { get => _noteOpen; set { if (Set(ref _noteOpen, value)) { Raise(nameof(NoteArrow)); Raise(nameof(ShowNote)); } } }
+
+    public Disclosure Disclosure => _disclosure ??= BlockDisclosure.Parse(this);
+    public bool IsCollapsible => Disclosure.Kind != DisclosureKind.None;
+    public bool IsPlain => !IsCollapsible;
+    public string Arrow => IsOpen ? "▾" : "▸";
+    public string NoteArrow => NoteOpen ? "▾" : "▸";
+    public string DisclosureHeader => IsOpen ? Disclosure.OpenLabel : Disclosure.Header;
+    public string DisclosureBody => Disclosure.Body;
+    public string DisclosureNote => Disclosure.Note ?? "";
+    public bool HasNote => Disclosure.Note is not null;
+    public bool ShowNote => IsOpen && HasNote && NoteOpen;
+    public bool ShowNoteToggle => IsOpen && HasNote;
+    /// <summary>The open body is Markdown (messages) or plain text (thinking, notes).</summary>
+    public bool ShowMarkdownBody => IsOpen && Disclosure.Kind == DisclosureKind.Message;
+    public bool ShowPlainBody => IsOpen && Disclosure.Kind is DisclosureKind.Thinking or DisclosureKind.Note;
+
+    private void RaiseDisclosure()
+    {
+        Raise(nameof(Disclosure));
+        Raise(nameof(IsCollapsible));
+        Raise(nameof(IsPlain));
+        Raise(nameof(Arrow));
+        Raise(nameof(DisclosureHeader));
+        Raise(nameof(DisclosureBody));
+        Raise(nameof(DisclosureNote));
+        Raise(nameof(HasNote));
+        Raise(nameof(ShowNote));
+        Raise(nameof(ShowNoteToggle));
+        Raise(nameof(ShowMarkdownBody));
+        Raise(nameof(ShowPlainBody));
+    }
+
     public bool HasDetails => !string.IsNullOrEmpty(ToolInput) || !string.IsNullOrEmpty(Result);
 
     public string DurationText => DurationMs is long ms ? FormatDuration(ms) : "";
@@ -81,8 +125,10 @@ public sealed class LogBlock : ObservableObject
         if (string.IsNullOrEmpty(more)) return;
         _text.Append(more);
         _textCache = null;
+        _disclosure = null;
         Raise(nameof(Text));
         Raise(nameof(Summary));
+        RaiseDisclosure();
     }
 
     public void SetText(string text)
@@ -90,8 +136,10 @@ public sealed class LogBlock : ObservableObject
         _text.Clear();
         _text.Append(text);
         _textCache = null;
+        _disclosure = null;
         Raise(nameof(Text));
         Raise(nameof(Summary));
+        RaiseDisclosure();
     }
 
     /// <summary>One line, suited to the compact agent card.</summary>

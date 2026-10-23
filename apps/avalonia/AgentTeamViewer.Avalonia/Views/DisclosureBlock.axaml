@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="using:AgentTeamViewer.Views"
+             xmlns:m="using:AgentTeamViewer.Model"
+             x:Class="AgentTeamViewer.Views.DisclosureBlock"
+             x:DataType="m:LogBlock"
+             Focusable="False">
+    <!-- DataContext: Model.LogBlock whose Disclosure says how it collapses. The arrow row toggles IsOpen
+         (LogView handles the click, templates cannot carry handlers); the body below never toggles. -->
+    <Border x:Name="Frame" BorderBrush="{DynamicResource CyanDimBrush}" Padding="0,2,0,2">
+        <StackPanel>
+            <Border x:Name="HeaderRow" Classes="DisclosureRow" Background="Transparent" Cursor="Hand" Padding="0,1">
+                <Grid ColumnDefinitions="16,*">
+                    <TextBlock Classes="tag disclosure-arrow" FontSize="12" Text="{Binding Arrow}" VerticalAlignment="Center"/>
+                    <v:LogText x:Name="HeaderText" Grid.Column="1" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
+                               Text="{Binding DisclosureHeader, Mode=OneWay}"/>
+                </Grid>
+            </Border>
+
+            <StackPanel Margin="16,2,0,2">
+                <v:MarkdownView x:Name="MarkdownBody" BaseClass="delivery" IsVisible="{Binding ShowMarkdownBody}"
+                                Text="{Binding DisclosureBody, Mode=OneWay}" CopySource="{Binding Text, Mode=OneWay}"/>
+                <v:LogText x:Name="PlainBody" IsVisible="{Binding ShowPlainBody}" Text="{Binding DisclosureBody, Mode=OneWay}"/>
+
+                <!-- the standard "this came from another Claude session" paragraph, behind its own dim toggle -->
+                <StackPanel IsVisible="{Binding ShowNoteToggle}" Margin="0,4,0,0">
+                    <Border Classes="NoteRow" Background="Transparent" Cursor="Hand" Padding="0,1" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <TextBlock Classes="tag" FontSize="12" Text="{Binding NoteArrow}"/>
+                            <TextBlock Classes="tag" Text="delivery note"/>
+                        </StackPanel>
+                    </Border>
+                    <v:LogText Classes="notice" IsVisible="{Binding ShowNote}" Text="{Binding DisclosureNote, Mode=OneWay}" Margin="14,2,0,2"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

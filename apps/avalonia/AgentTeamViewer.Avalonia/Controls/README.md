@@ -197,3 +197,6 @@ The Gallery has a Markdown section showing all of them.
   fade come from the style, so do not set `Opacity` in code (a local value would beat the hover style). Put a `tag` TextBlock inside.
 - `MenuFlyoutPresenter`, `ContextMenu` and `MenuItem` are themed implicitly: mono 12px regular, BgPanel fill, CyanDim frame, radius 4,
   Hairline hover with Cyan text. The Gallery shows an inline `MenuFlyoutPresenter` and a copy button.
+
+Fenced code text (`md-code`) is dimmed to 70% through its colour (`MdCodeFadedBrush`, `MdCodeText` at 70% alpha), not through `Opacity`,
+so the selection highlight, the frame (`md-code-block`) and the copy button keep their full look. Inline code (`md-inline-code`) is unchanged.

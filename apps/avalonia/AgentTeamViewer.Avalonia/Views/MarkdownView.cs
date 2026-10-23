@@ -33,6 +33,11 @@ public sealed class MarkdownView : Border
     public string Text { get => GetValue(TextProperty); set => SetValue(TextProperty, value); }
     public string BaseClass { get => GetValue(BaseClassProperty); set => SetValue(BaseClassProperty, value); }
 
+    /// <summary>What "Copy block" copies instead of the rendered text (for a collapsed view of a longer original).</summary>
+    public static readonly StyledProperty<string?> CopySourceProperty =
+        AvaloniaProperty.Register<MarkdownView, string?>(nameof(CopySource));
+    public string? CopySource { get => GetValue(CopySourceProperty); set => SetValue(CopySourceProperty, value); }
+
     private readonly StackPanel _root = new() { Orientation = Orientation.Vertical };
     private readonly DispatcherTimer _timer;
     private DateTime _lastRender = DateTime.MinValue;
@@ -115,7 +120,7 @@ public sealed class MarkdownView : Border
     /// <summary>A selectable text whose "Copy block" gives the whole block's Markdown source.</summary>
     private LogText NewText()
     {
-        var t = new LogText { BlockSource = _renderedText };
+        var t = new LogText { BlockSource = CopySource ?? _renderedText };
         _texts.Add(t);
         return t;
     }

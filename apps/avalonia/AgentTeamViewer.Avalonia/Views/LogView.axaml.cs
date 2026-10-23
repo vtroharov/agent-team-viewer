@@ -17,6 +17,7 @@ public partial class LogView : UserControl
     private const double BottomSlack = 24;   // px from the bottom that still counts as "at the bottom"
     private bool _autoScroll = true;
     private bool _pendingNewContent;
+    private bool _toggling;                     // a block was just expanded or collapsed: this layout growth is not new output
     private bool _pressed;                     // the pointer is down inside the log (a selection drag may be starting)
     private bool _heldWhileFollowing;          // auto-scroll was on when a press or selection paused it
     private Point _pressPos;
@@ -60,6 +61,8 @@ public partial class LogView : UserControl
             }
             return;
         }
+
+        if (_toggling) return;
 
         if (HoldsScroll)
         {
@@ -109,6 +112,27 @@ public partial class LogView : UserControl
     }
 
     /// <summary>Once nothing is pressed or selected any more, follow the output again if the view was following before.</summary>
+    /// <summary>Expanding or collapsing a block must not make the view jump to the end: the offset stays put for the layout pass.</summary>
+    private void Toggle(Action change, Func<bool> expanded)
+    {
+        _toggling = true;
+        _autoScroll = false;
+        _heldWhileFollowing = false;
+        var offset = Scroller.Offset;
+        change();
+        // Keep the view exactly where it was while the layout settles (focusing the clicked text or the new
+        // extent could otherwise scroll it), then follow the output again only if it still sits at the end.
+        void Restore() => Scroller.Offset = new Vector(offset.X, Math.Min(offset.Y, Math.Max(0, Scroller.Extent.Height - Scroller.Viewport.Height)));
+        Dispatcher.UIThread.Post(Restore, DispatcherPriority.Loaded);
+        Dispatcher.UIThread.Post(() =>
+        {
+            Restore();
+            _toggling = false;
+            // An expand keeps the view paused: its body may still be laying out (Markdown renders on load) and must not drag the view along.
+            _autoScroll = !expanded() && Scroller.Offset.Y >= Scroller.Extent.Height - Scroller.Viewport.Height - BottomSlack;
+        }, DispatcherPriority.Background);
+    }
+
     private void ReleaseHold()
     {
         if (HoldsScroll || !_heldWhileFollowing) return;
@@ -129,9 +153,12 @@ public partial class LogView : UserControl
         {
             for (var v = e.Source as Visual; v is not null && !ReferenceEquals(v, Items); v = v.GetVisualParent())
             {
-                if (v is Border { DataContext: LogBlock b } row && row.Classes.Contains("ToolRow"))
+                if (v is Border { DataContext: LogBlock b } row)
                 {
-                    b.IsExpanded = !b.IsExpanded;
+                    if (row.Classes.Contains("ToolRow")) b.IsExpanded = !b.IsExpanded;
+                    else if (row.Classes.Contains("DisclosureRow")) Toggle(() => b.IsOpen = !b.IsOpen, () => b.IsOpen);
+                    else if (row.Classes.Contains("NoteRow")) Toggle(() => b.NoteOpen = !b.NoteOpen, () => b.NoteOpen);
+                    else continue;
                     e.Handled = true;
                     break;
                 }

@@ -39,6 +39,8 @@
     <Color x:Key="MdTableHeaderFillColor">#FF0F192B</Color>
     <Color x:Key="MdTableHeaderTextColor">#FF86A9BA</Color>
     <Color x:Key="MdCodeBgColor">#FF04070F</Color>
+    <!-- Fenced code text at 70% alpha so it reads as quieter than reply text -->
+    <Color x:Key="MdCodeFadedColor">#B3B4CCD9</Color>
     <Color x:Key="MdCodeTextColor">#FFB4CCD9</Color>
     <Color x:Key="MdInlineCodeBgColor">#FF111C2E</Color>
     <Color x:Key="MdLinkColor">#FF74B4D0</Color>

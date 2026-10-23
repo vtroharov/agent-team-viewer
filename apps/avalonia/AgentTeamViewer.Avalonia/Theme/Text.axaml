@@ -176,7 +176,7 @@
     <Style Selector="TextBlock.md-code">
         <Setter Property="FontFamily" Value="{DynamicResource MonoFont}"/>
         <Setter Property="FontSize" Value="12"/>
-        <Setter Property="Foreground" Value="{DynamicResource MdCodeTextBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MdCodeFadedBrush}"/>
         <Setter Property="TextWrapping" Value="NoWrap"/>
         <Setter Property="LineHeight" Value="17"/>
         <Setter Property="LetterSpacing" Value="-0.031"/>
